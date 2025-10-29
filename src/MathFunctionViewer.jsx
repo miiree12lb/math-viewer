@@ -3,84 +3,110 @@ import Plot from "react-plotly.js";
 import { evaluate, range } from "mathjs";
 
 export default function MathFunctionViewer() {
-    const [expression, setExpression] = useState("sin(x)");
+    const [expressions, setExpressions] = useState(["sin(x)"]);
     const [is3D, setIs3D] = useState(false);
 
     const xValues = range(-10, 10, 0.1).toArray();
-
-    const yValues = xValues.map(x => {
-        try {
-            return evaluate(expression, { x });
-        }
-        catch {
-            return 0;
-        }
-    })
-
     const grid = range(-5, 5, 0.2).toArray();
-    const zValues = grid.map(x =>
-        grid.map(y => {
+
+    const plots2D = expressions.map((expr) => {
+        const y = xValues.map((x) => {
             try {
-                return evaluate(expression, { x, y });
+                return evaluate(expr, {x});
             }
             catch {
                 return 0;
             }
-        })
-    );
+        });
+        return {
+            x: xValues,
+            y,
+            type: "scatter",
+            mode: "lines",
+            name: expr
+        }
+    });
+
+    const plots3D = expressions.map((expr) => {
+        const z = grid.map((x) => 
+            grid.map((y) => {
+                try {
+                    return evaluate(expr, {x, y});
+                }
+                catch {
+                    return 0;
+                }
+            })
+        );
+        return {
+            z,
+            x: grid,
+            y: grid,
+            type: "surface",
+            name: expr,
+            colorscale: "virdis",
+            opacity: 0.8
+        }
+    })
 
    return (
-        <div style={{ width: "90%", margin: "auto", paddingTop: "1rem" }}>
+        <div>
             <h2>📈 Math Function Viewer</h2>
-            <div style={{ marginBottom: "1rem" }}>
-                <input
-                    type="text"
-                    value={expression}
-                    onChange={(e) => setExpression(e.target.value)}
-                    placeholder="Enter expression (e.g., sin(x), sin(x)*cos(y))"
-                    style={{ padding: "8px", width: "300px" }}
-                />
-                <button onClick={() => setIs3D(!is3D)} style={{ marginLeft: "10px", padding: "8px" }}>
-                    {is3D ? "Switch to 2D" : "Switch to 3D"}
-                </button>
-            </div>
 
-            {is3D ? (
-                <Plot
-                    data={[
-                        {
-                            z: zValues,
-                            x: grid,
-                            y: grid,
-                            type: "surface",
-                            colorscale: "Viridis",
-                        },
-                    ]}
-                    layout={{
-                        autosize: true,
-                        scene: { zaxis: { range: [-2, 2] } },
-                        margin: { t: 20, l: 0, r: 0, b: 0 },
-                    }}
-                    style={{ width: "100%", height: "80vh" }}
-                />
-            ) : (
-                <Plot
-                    data={[
-                        {
-                            x: xValues,
-                            y: yValues,
-                            type: "scatter",
-                            mode: "lines",
-                            line: { color: "#94692D", width: 2 },
-                        },
-                    ]}
-                    layout={{
-                        autosize: true,
-                        margin: { t: 20, l: 40, r: 10, b: 40 },
-                    }}
-                    style={{ width: "100%", height: "80vh" }}
-                />
-            )}
+            <button onClick={() => setIs3D(!is3D)} style={{ marginLeft: "10px", padding: "8px" }}>
+                {is3D ? "Switch to 2D" : "Switch to 3D"}
+            </button>
+
+            <div className="functions-viewer">
+                <div className="function-inputs">
+                    {expressions.map((expr, i) => (
+                        <div className="function-input">
+                            <input
+                                type="text"
+                                value={expr}
+                                onChange={(e) => {
+                                    const newExprs = [...expressions]
+                                    newExprs[i] = e.target.value;
+                                    setExpressions(newExprs);
+                                }}
+                            />
+
+                            <button
+                                onClick={() => {
+                                    const newExprs = expressions.filter((_, idx) => idx !== i);
+                                    setExpressions(newExprs);
+                                }}
+                            >
+                                ❌
+                            </button>
+                        </div>
+                    ))}
+                    <button
+                        id="add-function"
+                        onClick={() => setExpressions([...expressions, ""])}
+                    >
+                        ➕ Add Function
+                    </button>
+                </div>
+
+
+                <div id="plot">
+                    <Plot
+                        data={is3D ? plots3D : plots2D}
+                        layout={{
+                            autosize: true,
+                            scene: {zaxis : {range: [-2, 2]}},
+                            margin: {t: 20, l: 40, r: 10, b: 40},
+                            legend: { bgcolor: "rgba(0,0,0,0.3)", font: { color: "white" } },
+                            paper_bgcolor: "#151515",
+                            plot_bgcolor: "#151515",
+                            font: { color: "white" },
+                        }}
+                        useResizeHandler={true}
+                        style={{ width: "100%", height: "100%" }}
+                    />
+                </div>
+            </div>
         </div>
     );
 }
