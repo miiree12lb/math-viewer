@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/math-viewer/static/css/main.4429f38f.css",
-    "main.js": "/math-viewer/static/js/main.2f1060c1.js",
+    "main.css": "/math-viewer/static/css/main.ff345f1f.css",
+    "main.js": "/math-viewer/static/js/main.c692fda7.js",
     "static/media/logo.png": "/math-viewer/static/media/logo.76cf9eda8eea70c787d8.png",
     "static/media/instagram.svg": "/math-viewer/static/media/instagram.f1b93ec68f3f311e5c68d6085a9b479c.svg",
     "index.html": "/math-viewer/index.html",
     "static/media/linkedin.svg": "/math-viewer/static/media/linkedin.3f6d644cac1e5dd5bb4675ccea3d9ff3.svg",
-    "main.4429f38f.css.map": "/math-viewer/static/css/main.4429f38f.css.map",
-    "main.2f1060c1.js.map": "/math-viewer/static/js/main.2f1060c1.js.map"
+    "main.ff345f1f.css.map": "/math-viewer/static/css/main.ff345f1f.css.map",
+    "main.c692fda7.js.map": "/math-viewer/static/js/main.c692fda7.js.map"
   },
   "entrypoints": [
-    "static/css/main.4429f38f.css",
-    "static/js/main.2f1060c1.js"
+    "static/css/main.ff345f1f.css",
+    "static/js/main.c692fda7.js"
   ]
 }
