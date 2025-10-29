@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/math-viewer/static/css/main.ff345f1f.css",
-    "main.js": "/math-viewer/static/js/main.c692fda7.js",
+    "main.js": "/math-viewer/static/js/main.de41f012.js",
     "static/media/logo.png": "/math-viewer/static/media/logo.76cf9eda8eea70c787d8.png",
     "static/media/instagram.svg": "/math-viewer/static/media/instagram.f1b93ec68f3f311e5c68d6085a9b479c.svg",
     "index.html": "/math-viewer/index.html",
     "static/media/linkedin.svg": "/math-viewer/static/media/linkedin.3f6d644cac1e5dd5bb4675ccea3d9ff3.svg",
     "main.ff345f1f.css.map": "/math-viewer/static/css/main.ff345f1f.css.map",
-    "main.c692fda7.js.map": "/math-viewer/static/js/main.c692fda7.js.map"
+    "main.de41f012.js.map": "/math-viewer/static/js/main.de41f012.js.map"
   },
   "entrypoints": [
     "static/css/main.ff345f1f.css",
-    "static/js/main.c692fda7.js"
+    "static/js/main.de41f012.js"
   ]
 }
