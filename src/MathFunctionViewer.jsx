@@ -91,26 +91,29 @@ export default function MathFunctionViewer() {
 
             <div className="functions-viewer">
                 <div className="function-inputs">
-                    {expressions.map((expr, i) => (
-                        <div className="function-input" key={i}>
-                            <input
-                                type="text"
-                                value={expr}
-                                onChange={(e) => {
-                                    const newExprs = [...expressions];
-                                    newExprs[i] = e.target.value;
-                                    setExpressions(newExprs);
-                                }}
-                            />
-                            <button
-                                onClick={() => {
-                                    setExpressions(expressions.filter((_, idx) => idx !== i));
-                                }}
-                            >
-                                ❌
-                            </button>
-                        </div>
-                    ))}
+                    <div className="input-list">
+                        {expressions.map((expr, i) => (
+                            <div className="function-input" key={i}>
+                                <input
+                                    type="text"
+                                    value={expr}
+                                    onChange={(e) => {
+                                        const newExprs = [...expressions];
+                                        newExprs[i] = e.target.value;
+                                        setExpressions(newExprs);
+                                    }}
+                                />
+                                <button
+                                    onClick={() => {
+                                        setExpressions(expressions.filter((_, idx) => idx !== i));
+                                    }}
+                                >
+                                    ❌
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                    
                     <button
                         id="add-function"
                         onClick={() => setExpressions([...expressions, ""])}
